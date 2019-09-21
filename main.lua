@@ -29,8 +29,19 @@ local function getStream(url)
     local stdout = child.stdout
     for chunk in stdout.read do
       local mime = parse(chunk, true).query.mime
-      if mime and mime:find('audio') then
-        stream = chunk
+      if mime then
+        if type(mime) == 'table' then
+          for _, m in pairs(mime) do
+            if m:find('audio') then
+              stream = chunk
+              break
+            end
+          end
+        else
+          if mime:find('audio') then
+            stream = chunk
+          end
+        end
       end
     end
     return pcall(stdout.handle.close, stdout.handle)
