@@ -100,17 +100,15 @@ local streamPlaylist = coroutine.wrap(function(url, beginWith)
     for playingTrack = beginWith or 1, len(playlist.entries) do
       local stream = getPlaylistStream(url, playingTrack)
       print('Playing track '..playingTrack..' of '..len(playlist.entries))
-      connection:playFile(stream)
+      connection:playFFmpeg(stream)
     end
   end
 end)
 
-client.voice:loadOpus('libopus-x86')
-client.voice:loadSodium('libsodium-x86')
-
 client:on('ready', function()
   p('Logged in as ' .. client.user.username)
-  channel = client:getVoiceChannel('') -- channel ID goes here
+  channel = client:getChannel('') -- voice channel ID goes here
+  assert(channel and channel.type == discordia.enums.channelType.voice, 'couldn\'t find channel or channel was not a voice channel')
 end)
 
 client:on('messageCreate', function(message)
@@ -124,20 +122,23 @@ client:on('messageCreate', function(message)
         playingURL = string.gsub(msg.content, 'audio%.play ', '')
         local stream = getStream(playingURL) -- URL goes here
         print('playing')
-        connection:playFile(stream)
+        connection:playFFmpeg(stream)
       end
     elseif string.find(msg.content, 'audio%.playlist ') then
       playingURL = string.gsub(msg.content, 'audio%.playlist ', '')
       streamPlaylist(playingURL, 2)
     elseif msg.content == 'audio.pause' then
-      connection:pauseStream(playingURL)
+      connection:pauseStream()
     elseif msg.content == 'audio.resume' then
       connection:resumeStream()
     elseif msg.content == 'audio.skip' then
       print('stopping')
       connection:stopStream()
+    elseif msg.content == 'audio.leave' then
+      print('leaving')
+      connection:close()
     end
   end
 end)
 
-client:run(args[2])
+client:run("Bot " .. args[2])

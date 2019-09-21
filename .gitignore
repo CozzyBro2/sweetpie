@@ -41,3 +41,7 @@ luac.out
 
 # Luvit files
 deps/
+
+# Discordia file
+gateway.json
+discordia.log

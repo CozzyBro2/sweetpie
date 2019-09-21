@@ -9,6 +9,7 @@
     dependencies = {
         "SinisterRectus/discordia@2.6.0",
         "creationix/coro-split@2.0.0",
+        "creationix/coro-spawn@3.0.1",
     },
     files = {
         "**.lua",
