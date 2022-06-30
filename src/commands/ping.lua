@@ -1,7 +1,9 @@
 local module = {}
 
-function module.run(arguments, message)
-    message.channel:send("Pong!")
+local config = require("/src/config")
+
+function module.run(message)
+    message.channel:send(config.ping_generic_response)
 end
 
 return module

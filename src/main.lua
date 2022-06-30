@@ -34,7 +34,7 @@ local function onMessage(message)
         local module = commands[arguments[2]]
 
         if module then
-            module.run(arguments, message)
+            coroutine.resume(coroutine.create(module.run), message, arguments)
         end
     end
 end

@@ -1,27 +1,31 @@
 return {
 
-    -- Message to print when your token cant be found
     no_token_message = "Invalid token, make sure you have a file named .SECRET with a single line and your token on it in the current directory. ",
 
-    -- The string format for the token used to run the bot, not recommended to change
-    token_format = "Bot %s",
 
-    -- The greeting message indicating the bot is ready, change to an empty string to hide it
+    token_format = "Bot %s",
     ready_format = "'%s' logged in",
 
-    -- The file name that will be used to get the token in the active directory.
     secret_file = ".SECRET",
 
-    -- The configuration table passed to the discordia client constructor
     client_config = {
 
         bitrate = 96000,
 
     },
 
-    -- The prefix to be used for commands, i.e `pie ping`
     command_prefix = "pie",
-
-    -- The format string to be used by `string.match` for purpose of getting cmd arguments, default is %S+ to get all spaces.
     argument_match = "%S+",
+
+    ping_generic_response = "Pong!",
+
+    vc_feedback_response = "Checking...",
+
+    vc_user_not_in = "%s, you're not in a vc.",
+    vc_not_in = "%s, I'm not in a voice channel.",
+    vc_already_in = "%s, I'm already in a voice channel. If you need to move me say `pie vc leave` and have me join you again.",
+
+    vc_joining = "%s, attempting to join your voice channel.",
+    vc_leaving = "%s, attempting to leave your voice channel.",
+
 }
