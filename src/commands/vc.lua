@@ -56,7 +56,13 @@ function module.run(message, arguments)
     local member = message.guild:getMember(message.author)
     local channel = member.voiceChannel
 
-    argument_map[arguments[3]](message, channel, arguments)
+    local call = argument_map[arguments[3]]
+
+    if call then
+        call(message, channel, arguments)
+    else
+        say(config.vc_malformed_argument, message)
+    end
 end
 
 return module
