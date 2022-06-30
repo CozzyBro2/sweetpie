@@ -8,7 +8,7 @@ You can use this bot yourself, if you want. I've only really tailored it around 
 
 * Make sure you have luvit, luvi, and lit all installed and in your $PATH, or otherwise accesible.
 
-* Clone this repository, i.e: `git clone https://github.com/CozzyBro2/sweetpie'
+* Clone this repository, i.e: `git clone https://github.com/CozzyBro2/sweetpie`
 * `cd sweetpie`, then `lit install` to get all the dependencies.
 
 * create a file named `.SECRET` and make it a single line with your token on it.
