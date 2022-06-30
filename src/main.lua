@@ -16,9 +16,9 @@ if not token then
 end
 
 local function onReady(...)
-    print("'" .. client.user.username .. "'", "logged in")
+    print(string.format(config.login_format, client.user.username))
 end
 
 client:on("ready", onReady)
 
-client:run("Bot " .. tostring(token))
+client:run(string.format(config.token_format, token))

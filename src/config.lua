@@ -7,5 +7,8 @@ return {
         `luvit main.lua yourtokenhere`
     ]],
 
+    token_format = "Bot %s",
+    login_format = "'%s' logged in",
+
 
 }
