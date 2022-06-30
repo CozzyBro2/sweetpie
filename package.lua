@@ -1,16 +1,24 @@
-  return {
-    name = "truemedian/musicord",
-    version = "1.0.0",
-    description = "A port of xieve/musicord for discordia 2.x",
-    tags = { "lua", "discord" },
+return {
+    name = "hashcollision/sweetpie",
+    version = "0.0.0",
     license = "Unlicense",
-    author = { name = "Nameless", email = "truemedian@gmail.com" },
-    homepage = "https://github.com/truemedian/musicord",
+
+    description = " Discord bot written in Luvit + Discordia, generally for music",
+    tags = { "lua", "discord" },
+
+    author = { name = "Gavin", email = "gojinhan2@gmail.com" },
+    homepage = "https://github.com/CozzyBro2/sweetpie",
+
     dependencies = {
-        "SinisterRectus/discordia@2.6.0",
-        "creationix/coro-spawn@3.0.1",
+
+        "SinisterRectus/discordia@2.9.2",
+        "creationix/coro-spawn@3.0.2",
+
     },
+
     files = {
+
         "**.lua",
+
     }
 }

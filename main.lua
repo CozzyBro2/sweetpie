@@ -1,3 +1,5 @@
+--TODO: Rewrite
+
 local spawn = require('coro-spawn')
 local parse = require('url').parse
 local discordia = require('discordia')
