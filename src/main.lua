@@ -16,7 +16,7 @@ if not token then
 end
 
 local function onReady(...)
-    print(string.format(config.login_format, client.user.username))
+    print(string.format(config.ready_format, client.user.username))
 end
 
 client:on("ready", onReady)
