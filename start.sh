@@ -1,3 +1,5 @@
+#!/bin/bash
+
 BOTDIR=~/sweetpie;
 TOKEN=$(cat ~/.SECRET);
 

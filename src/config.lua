@@ -1,0 +1,11 @@
+return {
+
+    -- Output a couple characters of the token on launch
+    no_token_message = [[
+        No token specified, try running the file like: 
+    
+        `luvit main.lua yourtokenhere`
+    ]],
+
+
+}

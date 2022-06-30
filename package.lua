@@ -1,4 +1,5 @@
 return {
+
     name = "hashcollision/sweetpie",
     version = "0.0.0",
     license = "Unlicense",
@@ -20,5 +21,6 @@ return {
 
         "**.lua",
 
-    }
+    },
+
 }
