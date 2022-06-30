@@ -12,7 +12,11 @@ return {
 
     dependencies = {
 
+        --// Note, we depend on 'Bilal2453/discordia-interactions', but the upstream package errors, so git clone it locally to 'deps'
+
         "SinisterRectus/discordia@2.9.2",
+        "GitSparTV/discordia-slash@2.0.0",
+
         "creationix/coro-spawn@3.0.2",
 
     },
