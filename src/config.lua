@@ -10,5 +10,6 @@ return {
     token_format = "Bot %s",
     login_format = "'%s' logged in",
 
+    secret_file = ".SECRET",
 
 }

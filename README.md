@@ -1,16 +1,16 @@
-# musicord
-A simple music-bot to stream from YouTube written in Lua with the [Discordia](https://github.com/SinisterRectus/Discordia) and the [youtube-dl](https://rg3.github.io/youtube-dl/) library
+# Sweetpie
 
-## Installation
-First, follow the instructions [here](https://github.com/SinisterRectus/Discordia#installation) to install Discordia and [here](https://github.com/SinisterRectus/Discordia/wiki/Voice#acquiring-audio-libraries) to aquire the audio libraries Discordia-Voice needs, [here](https://rg3.github.io/youtube-dl/) you can download youtube-dl for your platform, run ```lit install creationix/coro-split``` in your bash/commandline and finally download main.lua in the folder where you installed everything else. To start the bot, just execute ```luvit main.lua TOKEN```, where TOKEN is your bot's token that you get after creating a discord application online.
+Discordia discord bot written in luvit
 
-## Available commands:
-- ``audio.join``          joins the user's current voice channel
-- ``audio.leave``         leaves the current voice channel
-- ``audio.play URL``      for playing single videos
-- ``audio.pause``         to pause the current stream
-- ``audio.resume``        to resume the paused stream
-- ``audio.skip``          to skip the playing video
+# Setting it up
 
-## To-Do:
-A queue for audio.play
+You can use this bot yourself, if you want. I've only really tailored it around my use cases, but good luck:
+
+* Make sure you have luvit, luvi, and lit all installed and in your $PATH, or otherwise accesible.
+
+* Clone this repository, i.e: `git clone https://github.com/CozzyBro2/sweetpie'
+* `cd sweetpie`, then `lit install` to get all the dependencies.
+
+* create a file named `.SECRET` and make it a single line with your token on it.
+
+* Finally, to run the bot just run `luvit src/main.lua` in the working directory, or use the `start.sh` file included. (You may need to `chmod +x start.sh` or equivalent)

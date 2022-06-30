@@ -7,7 +7,7 @@ local client = discordia.Client {
 
 }
 
-local token = args[2]
+local token = io.open(config.secret_file, "r"):read("*a")
 
 if not token then
     print(config.no_token_message)
