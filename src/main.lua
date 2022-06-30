@@ -7,18 +7,18 @@ local client = discordia.Client {
 
 }
 
-local function onReady(...)
-    print(...)
-end
-
 local token = args[2]
 
 if not token then
     print(config.no_token_message)
 
-    return
+    os.exit()
+end
+
+local function onReady(...)
+    print("'" .. client.user.username .. "'", "logged in")
 end
 
 client:on("ready", onReady)
 
-client:run(args[2])
+client:run("Bot " .. args[2])
