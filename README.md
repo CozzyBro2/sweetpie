@@ -43,8 +43,8 @@ That's about it for now
 
 ### misc
 * `pie ping`
-* `pie help` (currently not functional)
-* `pie host` (currently not functional)
+* `pie help`
+* `pie host`
 
 # Setting it up
 
