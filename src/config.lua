@@ -19,21 +19,34 @@ return {
 
     ping_generic_response = "Pong!",
 
-    vc_feedback_response = "Roger.",
-    vc_malformed_argument = 
-    [[
-        Inproper arguments.
-        Proper arguments are as follows:
+    audio_malformed_argument = [[
 
-        `pie vc join`,
-        `pie vc leave`
+        Invalid `audio` argument. 
+        Proper `audio` arguments are as follows:
+    
+        `play`,
+        `stop`
+    
+        i.e; `pie audio play`
+    
+    ]],
+
+    vc_malformed_argument = [[
+
+    Invalid `vc` command. 
+    Proper `vc` arguments are as follows:
+
+    `join`,
+    `leave`
+
+    i.e; `pie vc join`
 
     ]],
 
     vc_user_not_in = "%s, you're not in a vc.",
 
     vc_not_in = "%s, I'm not in a voice channel.",
-    vc_already_in = "%s, I'm already in a voice channel. If you need to move me say `pie vc leave` and have me join you again.",
+    vc_already_in = "%s, I'm already in that voice channel.",
 
     vc_joining = "%s, attempting to join your voice channel.",
     vc_leaving = "%s, attempting to leave your voice channel.",
