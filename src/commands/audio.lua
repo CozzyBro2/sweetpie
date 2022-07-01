@@ -95,7 +95,7 @@ function argument_map.remove(message, arguments)
     if state then
         message:reply(string.format(config.audio_removed_success, authorName, position))
 
-        connection:stopStream()       
+        connection:stopStream()
     else
         message:reply(string.format(config.audio_removed_error, authorName, position, err))
     end

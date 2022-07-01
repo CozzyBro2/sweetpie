@@ -3,8 +3,17 @@ local queueMap = {}
 
 local config = require("/src/config")
 
+local function getPosition(queue, result)
+    for position, value in ipairs(queue) do
+        if value == result then
+            return position
+        end
+    end
+end
+
 local function advance(info)
-    local position, item = next(info.queue, info.position)
+    local queue = info.queue
+    local position, item = next(queue, info.position)
 
     info.activeItem = item
     info.position = position
@@ -12,7 +21,6 @@ local function advance(info)
     if position and item then
         info.connection:playFFmpeg(item)
 
-        module.remove(position, info.message)
         advance(info)
     else
         info.playing = false
@@ -32,11 +40,7 @@ function module.add(result, message)
         coroutine.resume(coroutine.create(advance), info)
     end
 
-    for position, value in ipairs(queue) do
-        if value == result then
-            return position
-        end
-    end
+    return getPosition(queue, result)
 end
 
 function module.remove(position, message)
@@ -46,8 +50,6 @@ function module.remove(position, message)
     local result = tonumber(position) and queue[tonumber(position)]
 
     if result then
-        table.remove(queue, position)
-
         return true
     end
 
