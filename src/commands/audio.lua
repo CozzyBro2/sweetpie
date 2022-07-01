@@ -108,14 +108,6 @@ function argument_map.skip(message)
     connection:stopStream()
 end
 
-function argument_map.list(message)
-    local info = queue.getInfo(message)
-    --local list = table.concat(info.queue, config.audio_list_seperator)
-    local list = "i cant show you this yet"
-
-    message:reply(string.format(config.audio_list_format, list))
-end
-
 function module.run(message, arguments)
     local call = argument_map[arguments[3]]
 

@@ -35,7 +35,6 @@ That's about it for now
 * `pie audio pause`
 * `pie audio resume`
 * `pie audio skip`
-* `pie audio list` (currently not functional)
 
 ### voice
 * `pie vc join`

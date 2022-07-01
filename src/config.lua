@@ -33,7 +33,6 @@ return {
             `pie audio pause`
             `pie audio resume`
             `pie audio skip`
-            `pie audio list (probably doesnt work)`
 
         **Misc**:
             `pie ping`
@@ -51,7 +50,6 @@ return {
         `resume`,
         `skip`,
         `remove`,
-        `list`,
     
         i.e; `pie audio play https://someyoutubeurl`
     
@@ -59,15 +57,6 @@ return {
 
     audio_no_url = "%s, you did not specify a valid youtube URL.",
     audio_error = "%s, could not play audio because: %s",
-
-    audio_list_format = [[
-
-        List of things in the queue:
-        %s
-
-    ]],
-    audio_list_seperator = [[,
-    ]],
 
     audio_removed_success = "%s, removed **%d** from the queue.",
     audio_removed_error = "%s, failed to remove **%s** from the queue because: %s",
