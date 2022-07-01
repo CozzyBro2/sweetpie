@@ -50,8 +50,9 @@ function argument_map.play(message, arguments)
         local state, result = pcall(getStream, requested)
 
         if state and result then
-            coroutine.resume(coroutine.create(message.reply), message, string.format(config.audio_fetched, os.clock() - start))
+            local taken = (os.clock() - start) * 1000
 
+            coroutine.resume(coroutine.create(message.reply), message, string.format(config.audio_fetched, taken))
             connection:playFFmpeg(result)
         else
             message:reply(string.format(config.audio_error, message.author.username, result))
