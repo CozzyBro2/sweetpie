@@ -31,6 +31,9 @@ return {
     
     ]],
 
+    audio_no_url = "%s, you did not specify a valid youtube URL.",
+    audio_error = "%s, could not play audio because: %s",
+
     vc_malformed_argument = [[
 
     Invalid `vc` command. 
