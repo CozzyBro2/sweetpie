@@ -12,6 +12,8 @@ local function getPosition(queue, result)
 end
 
 local function advance(info)
+    if not info.playing then return end
+
     local queue = info.queue
     local position, item = next(queue, info.position)
 
@@ -29,7 +31,7 @@ local function advance(info)
 end
 
 function module.add(result, message)
-    local info = queueMap[message.guild.id]
+    local info = module.getInfo(message)
     local queue = info.queue
 
     table.insert(queue, result)
@@ -44,7 +46,7 @@ function module.add(result, message)
 end
 
 function module.remove(position, message)
-    local info = queueMap[message.guild.id]
+    local info = module.getInfo(message)
     local queue = info.queue
 
     local result = tonumber(position) and queue[tonumber(position)]
@@ -65,11 +67,20 @@ function module.run(connection, message)
         queue = {},
 
         position = nil,
-        activeItem = nil,
-
         playing = false,
 
     }
+end
+
+function module.getInfo(message)
+    return queueMap[message.guild.id]
+end
+
+function module.flush(message)
+    local info = module.getInfo(message)
+
+    info.playing = false
+    info.queue = {}
 end
 
 module.map = queueMap

@@ -1,6 +1,7 @@
 local module = {}
 
 local config = require("/src/config")
+local queue = require("./queue")
 
 local connections = {}
 local argument_map = {}
@@ -33,7 +34,9 @@ function argument_map.leave(message)
 
     coroutine.resume(coroutine.create(message.reply), message, string.format(config.vc_leaving, authorName))
 
+    queue.flush(message)
     connection:close()
+
     connections[guildId] = nil
 end
 

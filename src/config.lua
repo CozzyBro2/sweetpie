@@ -26,16 +26,25 @@ return {
     
         `play`,
         `pause`,
-        'resume',
-        'remove',
-        'list',
+        `resume`,
+        `remove`,
+        `list`,
     
-        i.e; `pie audio play`
+        i.e; `pie audio play https://someyoutubeurl`
     
     ]],
 
     audio_no_url = "%s, you did not specify a valid youtube URL.",
     audio_error = "%s, could not play audio because: %s",
+
+    audio_list_format = [[
+
+        List of things in the queue:
+        %s
+
+    ]],
+    audio_list_seperator = [[,
+    ]],
 
     audio_removed_success = "%s, removed **%d** from the queue.",
     audio_removed_error = "%s, failed to remove **%s** from the queue because: %s",
