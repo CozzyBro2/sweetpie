@@ -47,12 +47,16 @@ function argument_map.play(message, arguments)
     local connection = getConnection(message)
     if not connection then return end
 
+    coroutine.resume(coroutine.create(message.reply), message, config.audio_feedback)
+
     local requested = arguments[4]
 
     if requested and requested ~= "" then
         local state, result = pcall(getStream, requested)
 
         if state and result then
+            coroutine.resume(coroutine.create(message.reply), message, config.audio_fetched)
+
             connection:playFFmpeg(result)
         else
             message:reply(string.format(config.audio_error, message.author.username, result))

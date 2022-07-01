@@ -34,6 +34,9 @@ return {
     audio_no_url = "%s, you did not specify a valid youtube URL.",
     audio_error = "%s, could not play audio because: %s",
 
+    audio_feedback = "Fetching audio.",
+    audio_fetched = "Audio fetched.",
+
     vc_malformed_argument = [[
 
     Invalid `vc` command. 
