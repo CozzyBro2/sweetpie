@@ -39,7 +39,7 @@ return {
 
     vc_malformed_argument = [[
 
-    Invalid `vc` command. 
+    Invalid `vc` argument. 
     Proper `vc` arguments are as follows:
 
     `join`,

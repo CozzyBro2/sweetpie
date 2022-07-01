@@ -9,7 +9,7 @@ local argument_map = {}
 
 local function getStream(videoUrl)
     local child = spawn("youtube-dl", {
-        args = {"-g", videoUrl},
+        args = {"-g", "--skip-download", videoUrl},
         stdio = {nil, true, 2},
     })
 
