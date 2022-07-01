@@ -1,8 +1,9 @@
 local module = {}
 
-local spawn = require('coro-spawn')
-local config = require("/src/config")
+local spawn = require("coro-spawn")
 
+local config = require("/src/config")
+local queue = require("./queue")
 local connections = require("./vc").connections
 
 local argument_map = {}
@@ -41,6 +42,12 @@ function argument_map.play(message, arguments)
     local connection = getConnection(message)
     if not connection then return end
 
+    if not queue.running then
+        queue.running = true
+
+        queue.run(connection, message)
+    end
+
     coroutine.resume(coroutine.create(message.reply), message, config.audio_feedback)
 
     local requested = arguments[4]
@@ -51,9 +58,9 @@ function argument_map.play(message, arguments)
 
         if state and result then
             local taken = (os.clock() - start) * 1000
+            local position = queue.add(result, message)
 
-            coroutine.resume(coroutine.create(message.reply), message, string.format(config.audio_fetched, taken))
-            connection:playFFmpeg(result)
+            message:reply(string.format(config.audio_fetched, position, taken))
         else
             message:reply(string.format(config.audio_error, message.author.username, result))
         end
@@ -76,11 +83,22 @@ function argument_map.pause(message)
     connection:pauseStream()
 end
 
-function argument_map.stop(message)
+function argument_map.remove(message, arguments)
     local connection = getConnection(message)
     if not connection then return end
 
-    connection:stopStream()
+    local authorName = message.author.username
+    local position = arguments[4]
+
+    local state, err = pcall(queue.remove, position, message)
+
+    if state then
+        message:reply(string.format(config.audio_removed_success, authorName, position))
+
+        connection:stopStream()       
+    else
+        message:reply(string.format(config.audio_removed_error, authorName, position, err))
+    end
 end
 
 function module.run(message, arguments)

@@ -25,7 +25,10 @@ return {
         Proper `audio` arguments are as follows:
     
         `play`,
-        `stop`
+        `pause`,
+        'resume',
+        'remove',
+        'list',
     
         i.e; `pie audio play`
     
@@ -34,8 +37,14 @@ return {
     audio_no_url = "%s, you did not specify a valid youtube URL.",
     audio_error = "%s, could not play audio because: %s",
 
+    audio_removed_success = "%s, removed **%d** from the queue.",
+    audio_removed_error = "%s, failed to remove **%s** from the queue because: %s",
+
+    audio_removed_error_template = "%s isn't a valid member of the queue",
+    audio_queue_ended = "End of queue reached.",
+
     audio_feedback = "Fetching audio.",
-    audio_fetched = "Audio fetched in %.2fs",
+    audio_fetched = "Added audio to position **%d** in queue. Audio fetched in %.2fs",
 
     vc_malformed_argument = [[
 
