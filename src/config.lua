@@ -27,6 +27,7 @@ return {
         `play`,
         `pause`,
         `resume`,
+        `skip`,
         `remove`,
         `list`,
     

@@ -24,6 +24,7 @@ local function advance(info)
         info.connection:playFFmpeg(item)
 
         advance(info)
+        table.remove(queue, position)
     else
         info.playing = false
         info.message:reply(config.audio_queue_ended)

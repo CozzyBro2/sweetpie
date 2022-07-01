@@ -101,6 +101,13 @@ function argument_map.remove(message, arguments)
     end
 end
 
+function argument_map.skip(message)
+    local connection = getConnection(message)
+    if not connection then return end
+
+    connection:stopStream()
+end
+
 function argument_map.list(message)
     local info = queue.getInfo(message)
     --local list = table.concat(info.queue, config.audio_list_seperator)
