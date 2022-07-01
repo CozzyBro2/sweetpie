@@ -9,25 +9,30 @@ local parse = require('url').parse
 local argument_map = {}
 
 local function getStream(videoUrl)
+    local dl = os.clock()
     local child = spawn("youtube-dl", {
         args = {"-g", videoUrl},
         stdio = {nil, true, 2},
     })
-
+    print("dl:", os.clock() - dl)
     local stream
-
+    local ch = os.clock()
     for chunk in child.stdout.read do
+        local sp = os.clock()
         local youtubeUrls = chunk:split("\n")
-
-        for _, url in pairs(youtubeUrls) do
+        print("sp:", os.clock() - sp)
+        for i, url in pairs(youtubeUrls) do
+            local ie = os.clock()
             local mime = parse(url, true).query.mime
 
             if mime and mime:find("audio") == 1 then
                 stream = url
             end
+
+            print("ie:", i, os.clock() - ie)
         end
     end
-
+    print("ch:", os.clock() - ch)
     return stream
 end
 
@@ -52,10 +57,11 @@ function argument_map.play(message, arguments)
     local requested = arguments[4]
 
     if requested and requested ~= "" then
+        local start = os.clock()
         local state, result = pcall(getStream, requested)
 
         if state and result then
-            coroutine.resume(coroutine.create(message.reply), message, config.audio_fetched)
+            coroutine.resume(coroutine.create(message.reply), message, string.format(config.audio_fetched, os.clock() - start))
 
             connection:playFFmpeg(result)
         else

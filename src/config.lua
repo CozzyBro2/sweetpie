@@ -35,7 +35,7 @@ return {
     audio_error = "%s, could not play audio because: %s",
 
     audio_feedback = "Fetching audio.",
-    audio_fetched = "Audio fetched.",
+    audio_fetched = "Audio fetched in %.2fs",
 
     vc_malformed_argument = [[
 
