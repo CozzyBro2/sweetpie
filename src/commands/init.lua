@@ -3,8 +3,10 @@ local module = {}
 module.map = {
 
     ping = require("./ping"),
-    vc = require("./vc"),
+    help = require("./help"),
+    host = require("./host"),
 
+    vc = require("./vc"),
     audio = require("./audio"),
 
 }

@@ -7,6 +7,8 @@ local client = require("./client").client
 local prefix = config.command_prefix
 local prefix_len = string.len(prefix)
 
+local blacklist = config.blacklisted_commands
+
 local function makeArguments(content)
     local arguments = {}
 
@@ -31,9 +33,11 @@ local function onMessage(message)
 
     if isCommand then
         local arguments = makeArguments(content)
-        local module = commands[arguments[2]]
 
-        if module then
+        local name = arguments[2]
+        local module = commands[name]
+
+        if module and not blacklist[name] then
             coroutine.resume(coroutine.create(module.run), message, arguments)
         end
     end

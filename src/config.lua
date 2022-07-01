@@ -1,7 +1,8 @@
 return {
 
-    no_token_message = "Invalid token, make sure you have a file named .SECRET with a single line and your token on it in the current directory. ",
+    blacklisted_commands = {}, -- syntax: {help = true, host = true}
 
+    no_token_message = "Invalid token, make sure you have a file named .SECRET with a single line and your token on it in the current directory. ",
 
     token_format = "Bot %s",
     ready_format = "'%s' logged in",
@@ -17,7 +18,28 @@ return {
     command_prefix = "pie",
     argument_match = "%S+",
 
-    ping_generic_response = "Pong!",
+    ping_response = "Pong!",
+
+    help_response = [[
+        Here's some help stuff, no embed cause im poor
+
+        **Voice**
+            `pie vc join`
+            `pie vc leave`
+
+        **Audio**:
+            `pie audio play YOUTUBE-URL`
+            `pie audio remove NUMBER`
+            `pie audio pause`
+            `pie audio resume`
+            `pie audio skip`
+            `pie audio list (probably doesnt work)`
+
+        **Misc**:
+            `pie ping`
+            `pie help`
+            `pie host`
+    ]],
 
     audio_malformed_argument = [[
 

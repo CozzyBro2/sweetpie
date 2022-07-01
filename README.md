@@ -7,6 +7,7 @@ Designed mainly for music, and a few text-based commands.
 ### (buzzword compilation)
 
 * Modular module-based command handler
+* You can disable any commands
 * Shell script to start the bot
 * Somewhat flexible file-based token approach
 * Actually very configurable
@@ -15,6 +16,16 @@ Designed mainly for music, and a few text-based commands.
 * Audio queue (made together with bandaids and ducktape)
 
 That's about it for now
+
+### Drawbacks / Limitations
+
+* Non-flexible prefixes, all prefixes must be seperated by a space to work, meaning no `!vc join`, etc.
+* Queue system is working by a miracle, to say the least
+* Audio system demands a billion system depencies, probably quite hard to containerize
+* Opting for luvit means you can't compile this into machine code, which will slow this down some
+* I've done my best to optimize it, but the audio fetching can be slow on some devices (i.e my x86_64 desktop can fetch a video in 2 seconds, whereas my aarch64 pi 400 takes 5-10 sec)
+* The audio fetching has little safety and may break with the passage of time upon some variance in `youtube-dl` output.
+* No keyring support by default, only file reading. You'll need to patch this in yourself if you need it
 
 ## Commands
 
@@ -56,4 +67,4 @@ You can use this bot yourself, if you want. I've only really tailored it around 
     * [#1](https://github.com/SinisterRectus/Discordia/wiki/Voice#acquiring-audio-libraries), 
     * [#2](https://github.com/truemedian/musicord/blob/master/README.md)
 
-* Finally, to run the bot just run `luvit src/main.lua` in the working directory, or use the `start.sh` file included. (You may need to `chmod +x start.sh` or equivalent)
+* Finally, to run the bot just run `luvit src/main.lua` in the working directory, or use the `start.sh` file included. (Make sure the file has execute permissions)
