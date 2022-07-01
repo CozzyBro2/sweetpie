@@ -4,35 +4,24 @@ local spawn = require('coro-spawn')
 local config = require("/src/config")
 
 local connections = require("./vc").connections
-local parse = require('url').parse
 
 local argument_map = {}
 
 local function getStream(videoUrl)
-    local dl = os.clock()
     local child = spawn("youtube-dl", {
         args = {"-g", videoUrl},
         stdio = {nil, true, 2},
     })
-    print("dl:", os.clock() - dl)
+
     local stream
-    local ch = os.clock()
+
     for chunk in child.stdout.read do
-        local sp = os.clock()
         local youtubeUrls = chunk:split("\n")
-        print("sp:", os.clock() - sp)
-        for i, url in pairs(youtubeUrls) do
-            local ie = os.clock()
-            local mime = parse(url, true).query.mime
+        stream = youtubeUrls[2]
 
-            if mime and mime:find("audio") == 1 then
-                stream = url
-            end
-
-            print("ie:", i, os.clock() - ie)
-        end
+        break
     end
-    print("ch:", os.clock() - ch)
+
     return stream
 end
 
