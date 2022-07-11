@@ -4,9 +4,7 @@ module.map = {
 
     ping = require("./ping"),
     help = require("./help"),
-    host = require("./host"),
-
-    rce = require("./rce"),
+    uptime = require("./uptime"),
 
     vc = require("./vc"),
     audio = require("./audio"),

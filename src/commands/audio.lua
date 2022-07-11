@@ -19,7 +19,7 @@ local function getStream(videoUrl)
             "-e",
             "-x",
 
-            "--skip-download", 
+            "--skip-download",
             videoUrl
 
         },

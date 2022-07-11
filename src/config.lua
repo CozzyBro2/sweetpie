@@ -18,6 +18,13 @@ return {
     command_prefix = "pie",
     argument_match = "%S+",
 
+    uptime_shows_uname = true,
+
+    uptime_format = "%s\n%s",
+    uptime_host = "%s: **%s**",
+    uptime_bot = "This bot \n: **%s**",
+    uptime_bot_uptime = "%d days, %d hours, %d minutes",
+
     ping_response = "Pong!",
 
     help_response = [[
@@ -30,6 +37,7 @@ return {
         **Audio**:
             `pie audio play YOUTUBE-URL`
             `pie audio remove NUMBER`
+            `pie audio list`
             `pie audio pause`
             `pie audio resume`
             `pie audio skip`
@@ -37,7 +45,7 @@ return {
         **Misc**:
             `pie ping`
             `pie help`
-            `pie host`
+            `pie uptime`
     ]],
 
     audio_malformed_argument = [[
@@ -45,13 +53,15 @@ return {
         Invalid `audio` argument. 
         Proper `audio` arguments are as follows:
     
-        `play`,
+        `play YOUTUBE-URL`,
+        `remove NUMBER`,
+        `list`,
         `pause`,
         `resume`,
         `skip`,
-        `remove`,
+        
     
-        i.e; `pie audio play https://someyoutubeurl`
+        e.g; `pie audio play https://someyoutubeurl`
     
     ]],
 
@@ -99,6 +109,6 @@ return {
         return error(why, 0)
     end,
 
-    panic = "i dont know anymore",
+    panic = "i dont know anymore %s",
 
 }
