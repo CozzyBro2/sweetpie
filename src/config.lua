@@ -56,7 +56,8 @@ return {
     ]],
 
     audio_no_url = "%s, you did not specify a valid youtube URL.",
-    audio_error = "%s, could not play audio. %s",
+    audio_fetch_error = "%s, couldn't fetch audio because: %s",
+    --audio_error = "%s, could not play audio",
 
     audio_removed_success = "%s, removed **%d** from the queue.",
     audio_removed_error = "%s, failed to remove **%s** from the queue because: %s",
