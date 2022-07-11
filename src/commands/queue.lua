@@ -80,8 +80,10 @@ end
 function module.flush(message)
     local info = module.getInfo(message)
 
-    info.playing = false
-    info.queue = {}
+    if info then
+        info.playing = false
+        info.queue = {}
+    end
 end
 
 module.map = queueMap

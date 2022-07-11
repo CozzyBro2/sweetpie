@@ -6,7 +6,10 @@ local queue = require("./queue")
 local connections = {}
 local argument_map = {}
 
-function argument_map.join(message, channel)
+function argument_map.join(message)
+    local member = message.guild:getMember(message.author)
+    local channel = member.voiceChannel
+
     local guildId = message.guild.id
     local authorName = message.author.username
 
@@ -43,18 +46,16 @@ function argument_map.leave(message)
 end
 
 function module.run(message, arguments)
-    local member = message.guild:getMember(message.author)
-    local channel = member.voiceChannel
-
     local call = argument_map[arguments[3]]
 
     if call then
-        call(message, channel, arguments)
+        call(message, arguments)
     else
         config.kill(config.vc_malformed_argument)
     end
 end
 
 module.connections = connections
+module.map = argument_map
 
 return module

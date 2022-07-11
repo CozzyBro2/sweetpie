@@ -6,17 +6,18 @@ local uv = require("uv")
 local parse = require("url").parse
 local queue = require("./queue")
 
-local connections = require("./vc").connections
+local vc = require("./vc")
 local config = require("/src/config")
 
+local connections = vc.connections
 local argument_map = {}
 
 local function getStream(videoUrl)
-    local child, err = spawn("youtube-dl", {
+    local child = spawn("youtube-dl", {
         args = {
 
-            "-g", 
-            "-e", 
+            "-g",
+            "-e",
             "-x",
 
             "--skip-download", 
@@ -24,25 +25,26 @@ local function getStream(videoUrl)
 
         },
 
-        stdio = {nil, true, 2},
+        stdio = {nil, true, true},
     })
 
     if not child then
-        config.kill(string.format(config.audio_fetch_error, message.author.username, err))
+        config.kill(config.panic)
     end
 
-    local stream = {}
+    local code = child.waitExit()
 
-    for chunk in child.stdout.read do
-        local output = chunk:split("\n")
-
-        stream.name = output[1]
-        stream.audio = output[2]
-
-        break
+    if code == 1 then
+        config.kill(string.format(config.audio_fetch_error, child.stderr.read()))
     end
 
-    return stream
+    local chunk = child.stdout.read()
+    local output = chunk:split("\n")
+
+    return { 
+        name = output[1], 
+        audio = output[2] 
+    }
 end
 
 local function getConnection(message)
@@ -58,8 +60,13 @@ local function getConnection(message)
 end
 
 function argument_map.play(message, arguments)
-    local connection = getConnection(message)
-    if not connection then return end
+    local connection = connections[message.guild.id]
+
+    if not connection then 
+        vc.map.join(message)
+
+        connection = connections[message.guild.id]
+    end
 
     if not queue.running then
         queue.running = true
@@ -80,6 +87,8 @@ function argument_map.play(message, arguments)
             local position = queue.add(result, message)
 
             message:reply(string.format(config.audio_fetched, position, taken))
+        else
+            config.kill(string.format(config.audio_error, message.author.username, result))
         end
     else
         config.kill(string.format(config.audio_no_url, message.author.username))
