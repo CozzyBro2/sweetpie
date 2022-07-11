@@ -90,6 +90,9 @@ return {
     rce_error = "%s, failed to execute that command. I don't know why though",
     rce_unauth = "%s, not authorized",
 
+    audio_list_empty = "%s, the queue is currently empty",
+    audio_list_seperator = ", \n",
+
     kill = function(why)
         return error(why, 0)
     end

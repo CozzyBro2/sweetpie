@@ -1,24 +1,46 @@
 local module = {}
 
 local spawn = require("coro-spawn")
+local parse = require('url').parse
 
 local config = require("/src/config")
 local queue = require("./queue")
-local connections = require("./vc").connections
 
+local connections = require("./vc").connections
 local argument_map = {}
 
 local function getStream(videoUrl)
     local child = spawn("youtube-dl", {
-        args = {"-g", "--skip-download", videoUrl},
+        args = {
+
+            "-g", 
+            "-e", 
+
+            "--skip-download", 
+            
+            videoUrl
+
+        },
+
         stdio = {nil, true, 2},
     })
 
-    local stream
+    local stream = {}
 
     for chunk in child.stdout.read do
-        local youtubeUrls = chunk:split("\n")
-        stream = youtubeUrls[2]
+        local output = chunk:split("\n")
+
+        for _, audioUrl in pairs(output) do
+            local mime = parse(audioUrl, true).query.mime
+
+            if mime and mime:find('audio') == 1 then
+                stream.audio = audioUrl
+            else
+                print(audioUrl)
+            end
+        end
+
+        --stream.name = videoUrls[1]
 
         break
     end
@@ -56,7 +78,7 @@ function argument_map.play(message, arguments)
         local start = os.clock()
         local state, result = pcall(getStream, requested)
 
-        if state and result then
+        if state and result.audio then
             local taken = (os.clock() - start) * 1000
             local position = queue.add(result, message)
 
@@ -99,6 +121,25 @@ function argument_map.remove(message, arguments)
     else
         config.kill(string.format(config.audio_removed_error, authorName, position, err))
     end
+end
+
+function argument_map.list(message)
+    local output = {}
+    local list = queue.getInfo(message)
+
+    if list then
+        for _, item in ipairs(list.queue) do
+            table.insert(output, item.name)
+        end
+    
+        local result = table.concat(output, config.audio_list_seperator)
+        
+        if result ~= "" then
+            return message:reply(result)
+        end
+    end
+
+    config.kill(string.format(config.audio_list_empty, message.author.username))
 end
 
 function argument_map.skip(message)

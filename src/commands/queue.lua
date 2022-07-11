@@ -21,7 +21,7 @@ local function advance(info)
     info.position = position
 
     if position and item then
-        info.connection:playFFmpeg(item)
+        info.connection:playFFmpeg(item.audio)
 
         advance(info)
         table.remove(queue, position)

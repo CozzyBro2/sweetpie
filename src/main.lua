@@ -41,6 +41,8 @@ local function onMessage(message)
             local state, result = pcall(module.run, message, arguments)
 
             if not state then
+                print(result)
+
                 message:reply(tostring(result))
             end
         end
