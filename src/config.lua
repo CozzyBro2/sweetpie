@@ -87,4 +87,11 @@ return {
     vc_joining = "%s, attempting to join your voice channel.",
     vc_leaving = "%s, attempting to leave your voice channel.",
 
+    rce_error = "%s, failed to execute that command. I don't know why though",
+    rce_unauth = "%s, not authorized",
+
+    kill = function(why)
+        return error(why, 0)
+    end
+
 }

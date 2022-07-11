@@ -30,7 +30,7 @@ local function getConnection(message)
     local connection = connections[message.guild.id]
 
     if not connection then
-        message:reply(string.format(config.vc_not_in, message.author.username))
+        config.kill(string.format(config.vc_not_in, message.author.username))
 
         return
     end
@@ -62,10 +62,10 @@ function argument_map.play(message, arguments)
 
             message:reply(string.format(config.audio_fetched, position, taken))
         else
-            message:reply(string.format(config.audio_error, message.author.username, result))
+            config.kill(string.format(config.audio_error, message.author.username, result))
         end
     else
-        message:reply(string.format(config.audio_no_url, message.author.username))
+        config.kill(string.format(config.audio_no_url, message.author.username))
     end
 end
 
@@ -97,7 +97,7 @@ function argument_map.remove(message, arguments)
 
         connection:stopStream()
     else
-        message:reply(string.format(config.audio_removed_error, authorName, position, err))
+        config.kill(string.format(config.audio_removed_error, authorName, position, err))
     end
 end
 
@@ -114,7 +114,7 @@ function module.run(message, arguments)
     if call then
         call(message, arguments)
     else
-        message:reply(config.audio_malformed_argument)
+        config.kill(config.audio_malformed_argument)
     end
 end
 

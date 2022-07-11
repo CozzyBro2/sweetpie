@@ -38,7 +38,11 @@ local function onMessage(message)
         local module = commands[name]
 
         if module and not blacklist[name] then
-            coroutine.resume(coroutine.create(module.run), message, arguments)
+            local state, result = pcall(module.run, message, arguments)
+
+            if not state then
+                message:reply(tostring(result))
+            end
         end
     end
 end

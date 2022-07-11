@@ -56,7 +56,7 @@ function module.remove(position, message)
         return true
     end
 
-    return error(string.format(config.audio_removed_error_template, tostring(position)))
+    return config.kill(string.format(config.audio_removed_error_template, tostring(position)))
 end
 
 function module.run(connection, message)
