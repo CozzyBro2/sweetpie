@@ -3,13 +3,12 @@ local module = {}
 local spawn = require("coro-spawn")
 local uv = require("uv")
 
-local parse = require("url").parse
 local queue = require("./queue")
-
 local vc = require("./vc")
-local config = require("/src/config")
 
+local config = require("/src/config")
 local connections = vc.connections
+
 local argument_map = {}
 
 local function getStream(videoUrl)
@@ -34,7 +33,7 @@ local function getStream(videoUrl)
 
     local code = child.waitExit()
 
-    if code == 1 then
+    if code ~= 0 then
         config.kill(string.format(config.audio_fetch_error, child.stderr.read()))
     end
 
