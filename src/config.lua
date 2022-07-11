@@ -56,7 +56,7 @@ return {
     ]],
 
     audio_no_url = "%s, you did not specify a valid youtube URL.",
-    audio_error = "%s, could not play audio because: %s",
+    audio_error = "%s, could not play audio. %s",
 
     audio_removed_success = "%s, removed **%d** from the queue.",
     audio_removed_error = "%s, failed to remove **%s** from the queue because: %s",
@@ -91,6 +91,7 @@ return {
     rce_unauth = "%s, not authorized",
 
     audio_list_empty = "%s, the queue is currently empty",
+    audio_list_format = "**%d:** %s",
     audio_list_seperator = ", \n",
 
     kill = function(why)

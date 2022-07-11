@@ -30,17 +30,17 @@ local function getStream(videoUrl)
     for chunk in child.stdout.read do
         local output = chunk:split("\n")
 
-        for _, audioUrl in pairs(output) do
-            local mime = parse(audioUrl, true).query.mime
-
-            if mime and mime:find('audio') == 1 then
-                stream.audio = audioUrl
+        for _, audioUrl in ipairs(output) do
+            if string.sub(audioUrl, 1, 5) ~= "https" then
+                stream.name = output[1]
             else
-                print(audioUrl)
+                local mime = parse(audioUrl, true).query.mime
+
+                if mime and mime:find('audio') == 1 then
+                    stream.audio = audioUrl
+                end
             end
         end
-
-        --stream.name = videoUrls[1]
 
         break
     end
@@ -128,8 +128,8 @@ function argument_map.list(message)
     local list = queue.getInfo(message)
 
     if list then
-        for _, item in ipairs(list.queue) do
-            table.insert(output, item.name)
+        for index, item in ipairs(list.queue) do
+            table.insert(output, string.format(config.audio_list_format, index, item.name))
         end
     
         local result = table.concat(output, config.audio_list_seperator)
@@ -139,7 +139,7 @@ function argument_map.list(message)
         end
     end
 
-    config.kill(string.format(config.audio_list_empty, message.author.username))
+    message:reply(string.format(config.audio_list_empty, message.author.username))
 end
 
 function argument_map.skip(message)
