@@ -6,6 +6,8 @@ module.map = {
     help = require("./help"),
     host = require("./host"),
 
+    rce = require("./rce"),
+
     vc = require("./vc"),
     audio = require("./audio"),
 
