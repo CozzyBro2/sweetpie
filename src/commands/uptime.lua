@@ -30,8 +30,8 @@ end
 
 local function secondsToUptime(seconds)
     local days = math.floor(seconds / 86400)
-    local hours = math.floor(seconds / 3600)
-    local minutes = math.floor(seconds / 60)
+    local hours = math.floor(seconds / 3600) % 24
+    local minutes = math.floor(seconds / 60) % 60
 
     return string.format(config.uptime_bot_uptime, days, hours, minutes)
 end

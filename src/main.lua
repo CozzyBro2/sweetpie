@@ -51,10 +51,9 @@ end
 
 local function onReady(...)
     print(string.format(config.ready_format, client.user.username))
-
-    client:on("messageCreate", onMessage)
 end
 
 client:on("ready", onReady)
+client:on("messageCreate", onMessage)
 
 tokenHandler.run()
