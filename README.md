@@ -1,7 +1,10 @@
 # Sweetpie
 
-Discordia discord bot written in luvit, forked from [Musicord](https://github.com/truemedian/musicord).
-Designed mainly for music, and a few text-based commands.
+Discordia discord bot written in luvit
+
+Takes a few things from [Musicord](https://github.com/truemedian/musicord).
+
+Designed for audio/voice channels, but also supports some other commands
 
 # Some attributes
 
@@ -12,9 +15,7 @@ Designed mainly for music, and a few text-based commands.
 * Audio playback support, stopping, playing, skipping, pausing, resuming, etc.
 * Audio queue (kind of a hackjob)
 
-That's about it for now
-
-### Drawbacks / Limitations
+### Limitations
 
 * Command parsing is based on spacing only, meaning no `!vc join` etc.
 * May be difficult to containerize
@@ -24,21 +25,7 @@ That's about it for now
 
 ## Commands
 
-### audio
-* `pie audio play YOUTUBE-URL`
-* `pie audio remove NUMBER`
-* `pie audio pause`
-* `pie audio resume`
-* `pie audio skip`
-
-### voice
-* `pie vc join`
-* `pie vc leave`
-
-### misc
-* `pie ping`
-* `pie help`
-* `pie uptime`
+[see the config file for the help command](src/config.lua)
 
 # Setting it up
 
@@ -51,11 +38,11 @@ You can use this bot yourself if you'd like:
 
 * create a file named `.SECRET` and make it a single line with your token on it.
 
-* If you want to use voice / audio stuff, make sure you have:
+* If you want to use voice / audio, make sure you have:
     * `libsodium`
-    * `libopus` 
-    * `ffmpeg` 
-    * `yt-dlp` 
+    * `libopus`
+    * `ffmpeg`
+    * `yt-dlp`
 
 * The steps to get those depencies working may vary from installing to moving .dll's/.so's to the working directory. 
 
