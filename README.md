@@ -3,29 +3,24 @@
 Discordia discord bot written in luvit, forked from [Musicord](https://github.com/truemedian/musicord).
 Designed mainly for music, and a few text-based commands.
 
-# Features
-### (buzzword compilation)
+# Some attributes
 
-* Modular module-based command handler
-* You can disable any commands
 * Shell script to start the bot
-* Somewhat flexible file-based token approach
-* Actually very configurable
+* Token file, doesn't read from env
+* Configurable
 * Voice chat support, joining, leaving, moving, etc.
 * Audio playback support, stopping, playing, skipping, pausing, resuming, etc.
-* Audio queue (made together with bandaids and ducktape)
+* Audio queue (kind of a hackjob)
 
 That's about it for now
 
 ### Drawbacks / Limitations
 
-* Non-flexible prefixes, all prefixes must be seperated by a space to work, meaning no `!vc join`, etc.
-* Queue system is working by a miracle, to say the least
-* Audio system demands a billion system depencies, probably quite hard to containerize
-* Opting for luvit means you can't compile this into machine code, which will slow this down some
-* I've done my best to optimize it, but the audio fetching can be slow on some devices (i.e my x86_64 desktop can fetch a video in 2 seconds, whereas my aarch64 pi 400 takes 5-10 sec)
-* The audio fetching has little safety and may break with the passage of time upon some variance in `youtube-dl` output.
-* No keyring support by default, only file reading. You'll need to patch this in yourself if you need it
+* Command parsing is based on spacing only, meaning no `!vc join` etc.
+* May be difficult to containerize
+* Audio fetching is pretty slow on bad hardware
+* The audio fetching picks the 2nd output and hopes it's the right one, this seems to break often
+* No keyring support
 
 ## Commands
 
@@ -43,11 +38,11 @@ That's about it for now
 ### misc
 * `pie ping`
 * `pie help`
-* `pie host`
+* `pie uptime`
 
 # Setting it up
 
-You can use this bot yourself, if you want. I've only really tailored it around my use cases, but good luck:
+You can use this bot yourself if you'd like:
 
 * Make sure you have luvit, luvi, and lit all installed and in your $PATH, or otherwise accesible.
 
@@ -60,10 +55,14 @@ You can use this bot yourself, if you want. I've only really tailored it around 
     * `libsodium`
     * `libopus` 
     * `ffmpeg` 
-    * `youtube-dl` 
+    * `yt-dlp` 
 
-* The steps to get those working here vary a lot depending on your platform, so here's someone elses documentation of them: 
-    * [#1](https://github.com/SinisterRectus/Discordia/wiki/Voice#acquiring-audio-libraries), 
-    * [#2](https://github.com/truemedian/musicord/blob/master/README.md)
+* The steps to get those depencies working may vary from installing to moving .dll's/.so's to the working directory. 
 
-* Finally, to run the bot just run `luvit src/main.lua` in the working directory, or use the `start.sh` file included. (Make sure the file has execute permissions)
+Here are the docs that helped me get them working:
+    * [Discordia](https://github.com/SinisterRectus/Discordia/wiki/Voice#acquiring-audio-libraries), 
+    * [Musicord](https://github.com/truemedian/musicord/blob/master/README.md)
+
+* To run the bot just run `luvit src/main.lua`. (must be cd'd into working directory)
+
+On POSIX, use the `start.sh` file included. (Make sure the file has execute permissions)

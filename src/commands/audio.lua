@@ -12,7 +12,7 @@ local connections = vc.connections
 local argument_map = {}
 
 local function getStream(videoUrl)
-    local child = spawn("youtube-dl", {
+    local child = spawn("yt-dlp", {
         args = {
 
             "-g",
@@ -41,8 +41,8 @@ local function getStream(videoUrl)
     local output = chunk:split("\n")
 
     return { 
-        name = output[1], 
-        audio = output[2] 
+        name = output[1],
+        audio = output[2]
     }
 end
 
