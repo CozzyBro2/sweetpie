@@ -8,8 +8,8 @@ local config = require('config')
 local connections = vc.connections
 
 local function getStream(videoUrl)
-  local child = spawn("youtube-dl", {
-      args = {
+    local child = spawn("yt-dlp", {
+        args = {
 
           "-g",
           "-e",
@@ -35,7 +35,7 @@ local function getStream(videoUrl)
 
   local chunk = child.stdout.read()
   local output = chunk:split("\n")
-  p(child)
+
   return {
       name = output[1],
       audio = output[2]
