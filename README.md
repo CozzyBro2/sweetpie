@@ -1,3 +1,8 @@
+# NOTE:
+
+This is the Toast branch, this branch is just `master` but converted to use [Toast](https://github.com/NotSoClassy/Toast)
+Currently a W.I.P
+
 # Sweetpie
 
 Discordia discord bot written in luvit
