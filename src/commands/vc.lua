@@ -1,61 +1,73 @@
-local module = {}
-
-local config = require("/src/config")
-local queue = require("./queue")
+local config = require('config')
+local queue = require('queue')
 
 local connections = {}
-local argument_map = {}
 
-function argument_map.join(message)
-    local member = message.guild:getMember(message.author)
-    local channel = member.voiceChannel
+local function join(message)
+  local member = message.guild:getMember(message.author)
+  local channel = member.voiceChannel
 
-    local guildId = message.guild.id
-    local authorName = message.author.username
+  local guildId = message.guild.id
+  local authorName = message.author.username
 
-    local connection = connections[guildId]
+  local connection = connections[guildId]
 
-    if not channel then
-        config.kill(string.format(config.vc_user_not_in, authorName))
-    end
+  if not channel then
+      message:reply(string.format(config.vc_user_not_in, authorName))
 
-    if connection then
-        config.kill(string.format(config.vc_already_in, authorName))
-    end
+      return
+  end
 
-    coroutine.resume(coroutine.create(message.reply), message, string.format(config.vc_joining, authorName))
-    connections[guildId] = channel:join()
+  if connection then
+      message:reply(string.format(config.vc_already_in, authorName))
+
+      return
+  end
+
+  coroutine.resume(coroutine.create(message.reply), message, string.format(config.vc_joining, authorName))
+  connections[guildId] = channel:join()
 end
 
-function argument_map.leave(message)
-    local guildId = message.guild.id
-    local authorName = message.author.username
+return {
+  name = 'vc',
+  description = 'vc commands',
+  execute = function(message)
+    message:reply(config.vc_malformed_argument)
+  end,
 
-    local connection = connections[guildId]
+  -- abusing the fact that toast ignores this
+  connections = connections,
+  join = join,
 
-    if not connection then
-        config.kill(string.format(config.vc_not_in, authorName))
-    end
+  subCommands = {
+    {
+      name = 'join',
+      description = 'join a vc',
+      execute = join
+    },
 
-    coroutine.resume(coroutine.create(message.reply), message, string.format(config.vc_leaving, authorName))
+    {
+      name = 'leave',
+      description = 'leave a vc',
+      execute = function(message)
+        local guildId = message.guild.id
+        local authorName = message.author.username
 
-    queue.flush(message)
-    connection:close()
+        local connection = connections[guildId]
 
-    connections[guildId] = nil
-end
+        if not connection then
+            message:reply(string.format(config.vc_not_in, authorName))
 
-function module.run(message, arguments)
-    local call = argument_map[arguments[3]]
+            return
+        end
 
-    if call then
-        call(message, arguments)
-    else
-        config.kill(config.vc_malformed_argument)
-    end
-end
+        coroutine.resume(coroutine.create(message.reply), message, string.format(config.vc_leaving, authorName))
 
-module.connections = connections
-module.map = argument_map
+        queue.flush(message)
+        connection:close()
 
-return module
+        connections[guildId] = nil
+      end
+    }
+  }
+}
