@@ -1,9 +1,7 @@
-local module = {}
-
 local spawn = require("coro-spawn")
 local uv = require("uv")
 
-local config = require("/src/config")
+local config = require("config")
 local start = uv.hrtime()
 
 local function getChild(name, args)
@@ -36,7 +34,10 @@ local function secondsToUptime(seconds)
     return string.format(config.uptime_bot_uptime, days, hours, minutes)
 end
 
-function module.run(message)
+return {
+  name = 'uptime',
+  description = 'check the bots uptime',
+  execute = function(message)
     local uptimeChild = getChild("uptime", {"-p"})
     local uptime = uptimeChild.stdout.read()
 
@@ -57,6 +58,5 @@ function module.run(message)
         string.format(config.uptime_host, name, uptime),
         string.format(config.uptime_bot, formatted)
     ))
-end
-
-return module
+  end
+}

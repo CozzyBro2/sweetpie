@@ -16,6 +16,8 @@ return {
 
         "creationix/coro-spawn@3.0.2",
 
+        "NotSoClassy/toast"
+
     },
 
     files = {

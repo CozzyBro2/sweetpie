@@ -1,5 +1,5 @@
 #!/bin/bash
 
-BOTDIR=~/sweetpie;
+current=`pwd`
 
-cd $BOTDIR && luvit src/main.lua
+luvit src/main.lua

@@ -1,59 +1,30 @@
-local config = require("./config")
+require('discordia').extensions()
+
+local toast = require("toast")
+local loader = require("loader")
+
+local config = require("config")
 local tokenHandler = require("./tokenHandler")
-
-local commands = require("./commands/init.lua").map
-local client = require("./client").client
-
-local prefix = config.command_prefix
-local prefix_len = string.len(prefix)
 
 local blacklist = config.blacklisted_commands
 
-local function makeArguments(content)
-    local arguments = {}
+local client = toast.Client(config.toast_config)
 
-    for argument in string.gmatch(content, config.argument_match) do
-        table.insert(arguments, argument)
-    end
-
-    return arguments
-end
-
-local function parseCommand(content)
-    local head = string.sub(content, 1, prefix_len)
-
-    return head == prefix
-end
-
-local function onMessage(message)
-    if message.author.bot then return end
-
-    local content = message.content
-    local isCommand = parseCommand(content)
-
-    if isCommand then
-        local arguments = makeArguments(content)
-
-        local name = arguments[2]
-        local module = commands[name]
-
-        if module and not blacklist[name] then
-            local state, result = pcall(module.run, message, arguments)
-
-            if not state then
-                print(result)
-
-                message:reply(tostring(result))
-            end
-        end
+toast.types.url = function(arg)
+    if arg:match('^https?') then
+        return arg
     end
 end
 
-local function onReady(...)
+for _, command in ipairs(loader.load('./src/commands')) do
+    if not blacklist[command.name] then
+        client:addCommand(command)
+    end
+end
+
+local function onReady()
     print(string.format(config.ready_format, client.user.username))
 end
 
 client:on("ready", onReady)
-client:on("messageCreate", onMessage)
-
-tokenHandler.run()
+client:login(tokenHandler.run())

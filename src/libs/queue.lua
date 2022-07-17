@@ -1,7 +1,7 @@
 local module = {}
 local queueMap = {}
 
-local config = require("/src/config")
+local config = require("config")
 
 local function getPosition(queue, result)
     for position, value in ipairs(queue) do
@@ -56,7 +56,7 @@ function module.remove(position, message)
         return true
     end
 
-    return config.kill(string.format(config.audio_removed_error_template, tostring(position)))
+    return nil, string.format(config.audio_removed_error_template, tostring(position))
 end
 
 function module.run(connection, message)

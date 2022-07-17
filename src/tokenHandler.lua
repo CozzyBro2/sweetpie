@@ -1,7 +1,6 @@
 local module = {}
 
-local config = require("./config")
-local client = require("./client").client
+local config = require("config")
 
 function module.run()
     local token = io.open(config.secret_file, "r"):read("*a")
@@ -12,7 +11,7 @@ function module.run()
         os.exit()
     end
 
-    client:run(string.format(config.token_format, token))
+    return token
 end
 
 return module
