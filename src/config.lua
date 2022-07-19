@@ -76,7 +76,7 @@ return {
     audio_queue_ended = "End of queue reached.",
 
     audio_feedback = "Fetching audio.",
-    audio_fetched = "Added audio to position **%d** in queue. Audio fetched in %.2fs",
+    audio_fetched = "Added **%s** to position **%d** in queue. Audio fetched in %.2fs",
 
     vc_malformed_argument = [[
 

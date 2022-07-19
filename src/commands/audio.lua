@@ -40,7 +40,7 @@ local function getStream(videoUrl)
     local chunk = child.stdout.read()
     local output = chunk:split("\n")
 
-    return { 
+    return {
         name = output[1],
         audio = output[2]
     }
@@ -85,7 +85,7 @@ function argument_map.play(message, arguments)
             local taken = (uv.hrtime() - start) / 1e9
             local position = queue.add(result, message)
 
-            message:reply(string.format(config.audio_fetched, position, taken))
+            message:reply(string.format(config.audio_fetched, result.name, position, taken))
         else
             config.kill(string.format(config.audio_error, message.author.username, result))
         end
